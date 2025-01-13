@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Delivery Service</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+<!-- Header -->
+<header class="bg-orange-500 text-white py-4 px-6 sticky top-0 z-50 shadow-md">
+  <div class="container mx-auto flex justify-between items-center">
+    <h1 class="text-xl font-bold">Foodie</h1>
+    <nav class="space-x-4 hidden md:block">
+      <a href="#" class="hover:text-yellow-300">Home</a>
+      <a href="#" class="hover:text-yellow-300">How It Works</a>
+      <a href="#" class="hover:text-yellow-300">About Us</a>
+      <a href="#" class="hover:text-yellow-300">Contact</a>
+    </nav>
+    <div class="relative" x-data="{ open: false }">
+      <button @click="open = !open" class="md:hidden bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300">Menu</button>
+      <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 bg-white rounded-lg shadow-lg py-2">
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 text-black">Home</a>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 text-black">How It Works</a>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 text-black">About Us</a>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 text-black">Contact</a>
+      </div>
+    </div>
+    <a href="#" class="hidden md:block bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-300">Order Now</a>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="bg-cover bg-center h-[500px] flex items-center justify-center text-center text-white" style="background-image: url('https://via.placeholder.com/1920x500');">
+  <div class="bg-black bg-opacity-50 p-6 rounded-lg">
+    <h1 class="text-4xl font-bold mb-4">Crave It? Deliver It!</h1>
+    <p class="text-lg mb-6">Choose your favorite dishes from our exclusive outlets!</p>
+    <input type="text" placeholder="Search for dishes, outlets, or cuisines..." class="w-80 px-4 py-2 rounded-lg focus:ring focus:ring-yellow-300 text-black">
+  </div>
+</section>
+
+<!-- Outlet Cards with Modal -->
+<section class="py-12">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center mb-8">Choose Your Outlet</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- Outlet 1 -->
+      <div class="bg-white shadow-md rounded-lg p-6 text-center">
+        <img src="https://via.placeholder.com/100" alt="Burger Haven" class="mx-auto mb-4">
+        <h3 class="text-xl font-semibold mb-2">Burger Haven</h3>
+        <p class="text-gray-600 mb-4">Burgers, Fries & More!</p>
+        <button @click="openModal('burger-haven')" class="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600">Explore Menu</button>
+      </div>
+      <!-- Outlet 2 -->
+      <div class="bg-white shadow-md rounded-lg p-6 text-center">
+        <img src="https://via.placeholder.com/100" alt="Pizza Palace" class="mx-auto mb-4">
+        <h3 class="text-xl font-semibold mb-2">Pizza Palace</h3>
+        <p class="text-gray-600 mb-4">Freshly baked pizzas with premium toppings!</p>
+        <button @click="openModal('pizza-palace')" class="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600">Explore Menu</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal -->
+<div x-data="{ modalOpen: false, selectedOutlet: '' }" @keydown.escape="modalOpen = false">
+  <div x-show="modalOpen" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-lg shadow-lg w-96 p-6 relative">
+      <button @click="modalOpen = false" class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">&times;</button>
+      <h3 class="text-xl font-semibold mb-4" x-text="selectedOutlet === 'burger-haven' ? 'Burger Haven Menu' : 'Pizza Palace Menu'"></h3>
+      <ul class="space-y-2">
+        <template x-if="selectedOutlet === 'burger-haven'">
+          <li>Burger - £8.99</li>
+          <li>Fries - £3.99</li>
+          <li>Milkshake - £4.99</li>
+        </template>
+        <template x-if="selectedOutlet === 'pizza-palace'">
+          <li>Margherita Pizza - £10.99</li>
+          <li>Pepperoni Pizza - £12.99</li>
+          <li>Garlic Bread - £4.99</li>
+        </template>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white py-6">
+  <div class="container mx-auto text-center">
+    <p class="text-sm">&copy; 2025 Your Hungry Friends at Foodie. <a href="#" class="text-yellow-400 hover:underline">Privacy Policy</a></p>
+  </div>
+</footer>
+
+<script>
+  function openModal(outlet) {
+    document.querySelector('[x-data]').__x.$data.modalOpen = true;
+    document.querySelector('[x-data]').__x.$data.selectedOutlet = outlet;
+  }
+</script>
+
+</body>
+</html>
